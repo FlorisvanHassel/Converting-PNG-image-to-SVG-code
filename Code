@@ -27,6 +27,8 @@ print(keras.__version__)
 np.random.seed(15)
 
 
+# for the assignment we had 48k training data
+
 # Start with analyzing/preprocessing the SVG files
 # Loading the SVG test data and removing all unusefull data from the SVG code to make the shortest possible sequence
 
