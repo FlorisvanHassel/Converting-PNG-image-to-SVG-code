@@ -75,12 +75,13 @@ train_svg_array_data = load_array_svg(np.array(load_string_svg(train_svg_dir)))
 print(train_svg_array_data.shape)
 
 
-# The data only has rectangles and ellipses in the PNG files, but some shapes are hidden behind others. 
+# The data only has rectangles and ellipses in the PNG files, but some shapes are hidden behind others (completly hidden). 
 # This means that there are more figures described in the SVG file than you can see in the corresponding PNG image.
+# This part of the code is used to draw each figure in every SVG code as an numpy array and stack those on top of each other for every
+# SVG code, if one figure completly disapears, the data point is left out of the data we use for this assignment.
 
-
-#shapes for drawing data in arrays from svg
-#create a rectangle from SVG data
+# shapes for drawing data in arrays from svg
+# create a rectangle from SVG data
 
 def rectangle(h, w, rx, ry):
     x_cord = int(rx)
