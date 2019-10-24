@@ -405,22 +405,48 @@ def output_svg(conv_values):
 
     return output
 
+#results
 
-# test data 
+pred_class_labels = pred_classes(X_test, class_dic)
+print('length output: ', len(pred_class_labels))
 
-#load PNG test data
-test_data = load_png(test_png_dir)
-test_normalized_png_data = (np.array(load_png(test_png_dir)))/255
+svg_files_list = output_svg(converted_to_values)
+print(len(svg_files_list))
 
-# Create the SVG test data corresponding to the PNG data
-test_pred_class = pred_classes(test_normalized_png_data, class_dic)
-len(test_pred_class)
+y_control = output_svg(convert_pred_class(y_test, class_dic))
+len(y_control)
 
-test_values = convert_pred_class(test_pred_class, class_dic)
+from evaluate import CER
 
-test_pred = output_svg(test_values)
-print(len(test_pred))
+CER(svg_files_list, y_control)
 
-    
+
+# How do the svg/png files look? 
+
+#------------------------------------------------
+# X_val picture
+%pylab inline
+n = 0            # change n to see your different outputs
+name_github = 'github_' + str(n) +'.png'
+imgplot = plt.imshow(X_test[n])
+plt.savefig(name_github)
+plt.show()
+
+
+#--------------------------------------------------
+#strings produced by png
+
+print(y_control[n])
+print()
+print(svg_files_list[n])
+
+from cairosvg import svg2png
+
+svg_code = svg_files_list[n]
+name_output = 'output_'+ str(n) + '.png'
+svg2png(bytestring=svg_code,write_to=name_output)
+
+#-------------------------------------------------------------
+
 ## The evaluation metric used for this task was the mean Character Error Rate (CER). This code scored a 0.122 error rate on the assignment 
     
